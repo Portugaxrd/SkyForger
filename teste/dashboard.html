@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <button>Home</button>
+    <button>Dashboard</button>
+    <button id="logout-button">Logout</button>
+  </header>
+
+  <main>
+    <button id="upload-button" style="background-color: green;">Upload</button>
+    <div id="file-info">
+      <div class="file-name">Nome do Arquivo</div>
+      <div class="file-details">
+        <span>Tamanho: 10 MB</span>
+        <span>Tipo: .zip</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('upload-button').addEventListener('click', () => {
+      window.location.href = 'upload.html';
+    });
+
+    document.getElementById('logout-button').addEventListener('click', () => {
+      firebase.auth().signOut().then(() => {
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>

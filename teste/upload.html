@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="upload-container">
+    <div id="drop-zone">
+      Arraste e solte um arquivo aqui
+      <div id="progress-bar">
+        <div id="progress"></div>
+      </div>
+      <span id="progress-text">0%</span>
+    </div>
+    <p id="error-message" style="color: red; display: none;">Só pode ser enviado arquivos!</p>
+  </div>
+
+  <script>
+    const dropZone = document.getElementById('drop-zone');
+    const progressBar = document.getElementById('progress');
+    const progressText = document.getElementById('progress-text');
+    const errorMessage = document.getElementById('error-message');
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'green';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+
+      if (!file.type.startsWith('application/')) {
+        errorMessage.style.display = 'block';
+        return;
+      }
+
+      errorMessage.style.display = 'none';
+      simulateUpload(file);
+    });
+
+    function simulateUpload(file) {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `${progress}%`;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        }
+      }, 300);
+    }
+  </script>
+</body>
+</html>
