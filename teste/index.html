@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="login-container">
+    <h1>Bem-vindo</h1>
+    <button id="google-login">Login com Google</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_DOMINIO.firebaseapp.com",
+      projectId: "SEU_PROJETO_ID",
+      storageBucket: "SEU_BUCKET.appspot.com",
+      messagingSenderId: "SEU_SENDER_ID",
+      appId: "SEU_APP_ID"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+
+    document.getElementById('google-login').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          window.location.href = 'dashboard.html'; // Redireciona para o dashboard
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  </script>
+</body>
+</html>
